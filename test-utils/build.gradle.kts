@@ -1,0 +1,36 @@
+import org.jetbrains.compose.compose
+
+plugins {
+  alias(libs.plugins.conventionsAndroidLibrary)
+  alias(libs.plugins.conventionsComposeMultiplatform)
+  alias(libs.plugins.conventionsDetekt)
+  alias(libs.plugins.conventionsKotlinMultiplatform)
+  alias(libs.plugins.conventionsProjectCommon)
+  alias(libs.plugins.dependencyAnalysis)
+}
+
+android {
+  namespace = "com.eygraber.galgal.test.utils"
+
+  dependencies {
+    implementation(compose.components.resources)
+    implementation(compose.runtime)
+    implementation(compose.uiTooling)
+
+    api(libs.test.paparazzi)
+
+    debugImplementation(libs.test.compose.uiManifest)
+  }
+}
+
+kotlin {
+  defaultKmpTargets(
+    project = project,
+  )
+
+  sourceSets {
+    commonMain.dependencies {
+      implementation(libs.kotlinx.coroutines.core)
+    }
+  }
+}

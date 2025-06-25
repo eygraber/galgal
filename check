@@ -1,0 +1,20 @@
+#!/bin/bash
+
+additional_gradle_tasks="
+:apps:shared:licensee
+testDevDebugUnitTest
+verifyPaparazziDevDebug
+:konsist:test
+"
+
+
+args=""
+for arg in "$@"; do
+  if [ "$arg" == "--lite" ]; then
+    additional_gradle_tasks=""
+  else
+    args="$args $arg"
+  fi
+done
+
+./format && ./detekt :apps:android:lintDevRelease $additional_gradle_tasks ${args:+$args}
